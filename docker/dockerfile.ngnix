@@ -1,0 +1,20 @@
+from nginx:latest
+
+RUN apt update && apt install wget -y
+RUN  yes | adduser vinny 
+
+
+WORKDIR /etc/nginx/keys
+
+
+WORKDIR /etc/nginx
+RUN  rm -r  nginx.conf
+
+
+COPY  ./nginx/main/nginx.conf  .
+COPY  ./nginx/php/*.conf   /etc/nginx/conf.d/php/
+
+COPY nginx/keys/   /etc/nginx/keys/.
+
+
+CMD ["nginx","-g", "daemon off;"]

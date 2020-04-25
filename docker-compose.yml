@@ -1,0 +1,20 @@
+version: '3'
+services:
+    nginx:
+        build: 
+            context: .
+            dockerfile: docker/dockerfile.ngnix
+        volumes:
+            - ./nginx/php:/etc/nginx/conf.d
+            - ./src:/var/www/html
+        ports:
+            - 8080:443
+            - 80:80
+    php-fpm:
+        build:
+            context: .
+            dockerfile: docker/dockerfile.app
+        ports:
+            - 9000:9000
+        volumes:
+            - ./src:/var/www/html
